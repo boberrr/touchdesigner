@@ -1,0 +1,32 @@
+#include <MozziGuts.h>
+#include <Oscil.h> // Oscylator dźwięku
+#include <tables/sin2048_int8.h> // Fala sinusoidalna
+#include <tables/saw2048_int8.h> // Fala piłokształtna
+#include <tables/square_no_alias_2048_int8.h> // Fala prostokątna
+
+const int potPin = A0; // Pin potencjometru
+const int speakerPin = 9; // Pin głośnika (PWM)
+
+// Wybierz jedną z fal (odkomentuj jedną opcję)
+// Oscil<SIN2048_NUM_CELLS, AUDIO_RATE> osc(440); // Sinusoida
+Oscil<SAW2048_NUM_CELLS, AUDIO_RATE> osc(440); // Piła
+// Oscil<SQUARE_NO_ALIAS_2048_NUM_CELLS, AUDIO_RATE> osc(440); // Prostokąt
+
+void setup() {
+  startMozzi(); // Uruchomienie syntezatora
+  osc.setFreq(440); // Ustawienie startowej częstotliwości
+}
+
+void updateControl() {
+  int potValue = analogRead(potPin); // Odczyt potencjometru
+  int freq = map(potValue, 0, 1023, 100, 1000); // Skalowanie wartości potencjometru na częstotliwość
+  osc.setFreq(freq); // Zmiana częstotliwości
+}
+
+int updateAudio() {
+  return osc.next(); // Generowanie dźwięku
+}
+
+void loop() {
+  audioHook(); // Obsługa dźwięku Mozzi
+}
