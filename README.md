@@ -1,3 +1,5 @@
+https://we.tl/t-VvxDzLfiMA
+
 **API_Pobieranie:** plik .toe w którym są podstawowe modyfikacje JSONa pobieranego przez webclient DAT, przydatne przy łączeniu się z API
 
 **Chopy_Opisane:** Opisane zajęcia z CHOPów
